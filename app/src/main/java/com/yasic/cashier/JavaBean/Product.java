@@ -1,5 +1,7 @@
 package com.yasic.cashier.JavaBean;
 
+import java.text.DecimalFormat;
+
 /**
  * Created by Yasic on 2016/5/27.
  */
@@ -17,7 +19,11 @@ public class Product {
         this.unit = unit;
         this.category = category;
         this.subCategory = subCategory;
-        this.price = price;
+        if (price < 0){
+            throw new NumberFormatException("Price need to be positive");
+        }
+        DecimalFormat decimalFormat = new DecimalFormat("0.00");
+        this.price = Double.valueOf(decimalFormat.format(price));
     }
 
     public String getBarcode() {
@@ -65,6 +71,11 @@ public class Product {
     }
 
     public void setPrice(double price) {
+        if (price < 0){
+            throw new NumberFormatException("Price need to be positive");
+        }
+        DecimalFormat decimalFormat = new DecimalFormat("0.00");
+        this.price = Double.valueOf(decimalFormat.format(price));
         this.price = price;
     }
 }
