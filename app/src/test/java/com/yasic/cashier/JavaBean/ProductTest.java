@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 /**
  * Created by Yasic on 2016/5/27.
@@ -43,7 +44,7 @@ public class ProductTest {
     @Test
     public void testGetSubCateGory() throws Exception {
         assertEquals("碳酸饮料", product1.getSubCategory());
-        //assertEquals("碳酸饮料", product2.getSubCategory());
+        assertEquals("碳酸饮料", product2.getSubCategory());
     }
 
     @Test
@@ -53,7 +54,14 @@ public class ProductTest {
     }
 
     @Test(expected = NumberFormatException.class)
-    public void testPosite() throws Exception{
+    public void testPositive() throws Exception{
         product3 = new Product("ITEM000001", "雪碧", "瓶", "食品", "碳酸饮料", -2.50);
+        fail("testPositive fail");
+    }
+
+    @Test(expected = NumberFormatException.class)
+    public void testPriceSize() throws Exception{
+        Product product3 = new Product("ITEM000001", "雪碧", "瓶", "食品", "碳酸饮料", 1000);
+        fail("testPriceSize fail");
     }
 }

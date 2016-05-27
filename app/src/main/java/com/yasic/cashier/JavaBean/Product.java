@@ -12,18 +12,25 @@ public class Product {
     private String category;
     private String subCategory;
     private double price;
+    private static double MAXPRICE = 999;
 
-    public Product(String barcode, String name, String unit, String category, String subCategory, double price) {
-        this.barcode = barcode;
+    public Product(String barcode, String name, String unit, String category, String subCategory, double price) throws Exception {        this.barcode = barcode;
         this.name = name;
         this.unit = unit;
         this.category = category;
         this.subCategory = subCategory;
+        checkTheFormatOfPrice(price);
+        DecimalFormat decimalFormat = new DecimalFormat("0.00");
+        this.price = Double.valueOf(decimalFormat.format(price));
+    }
+
+    private void checkTheFormatOfPrice (double price) throws NumberFormatException {
         if (price < 0){
             throw new NumberFormatException("Price need to be positive");
         }
-        DecimalFormat decimalFormat = new DecimalFormat("0.00");
-        this.price = Double.valueOf(decimalFormat.format(price));
+        if (price > MAXPRICE){
+            throw new NumberFormatException("Price is too big");
+        }
     }
 
     public String getBarcode() {
@@ -71,9 +78,7 @@ public class Product {
     }
 
     public void setPrice(double price) {
-        if (price < 0){
-            throw new NumberFormatException("Price need to be positive");
-        }
+        checkTheFormatOfPrice(price);
         DecimalFormat decimalFormat = new DecimalFormat("0.00");
         this.price = Double.valueOf(decimalFormat.format(price));
         this.price = price;
