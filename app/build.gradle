@@ -25,6 +25,6 @@ dependencies {
     compile 'com.android.support:design:23.3.0'
     compile 'io.reactivex:rxandroid:1.1.0'
     compile 'io.reactivex:rxjava:1.1.0'
-    compile files('libs/gson-2.6.2-sources.jar')
     testCompile 'junit:junit:4.12'
+    compile files('libs/gson-2.6.2.jar')
 }

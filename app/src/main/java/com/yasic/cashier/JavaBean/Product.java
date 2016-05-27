@@ -24,6 +24,8 @@ public class Product {
         this.price = Double.valueOf(decimalFormat.format(price));
     }
 
+
+
     private void checkTheFormatOfPrice (double price) throws NumberFormatException {
         if (price < 0){
             throw new NumberFormatException("Price need to be positive");
