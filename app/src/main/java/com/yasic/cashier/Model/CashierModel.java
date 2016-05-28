@@ -1,11 +1,13 @@
 package com.yasic.cashier.Model;
 
-import android.util.Log;
-
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.reflect.TypeToken;
 import com.yasic.cashier.JavaBean.CallbackBean;
 import com.yasic.cashier.JavaBean.Product;
+import com.yasic.cashier.JavaBean.PromotionInfo;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,33 +16,57 @@ import java.util.List;
  */
 public class CashierModel implements IModel {
 
+    private JsonArray jsonData;
+
     @Override
-    public CallbackBean getProducts() {
-        List<Product> productList = new ArrayList<>();
+    public CallbackBean<List<Product>> getProducts() {
+        CallbackBean<List<Product>> callbackBean;
+        String jsonArrayForTest = getProductJsonData();
+        Gson gson = new Gson();
+        Type type = new TypeToken<List<Product>>(){}.getType();
+        List<Product> productList = gson.fromJson(jsonArrayForTest, type);
+        if (productList != null && productList.size() != 0) {
+            callbackBean = new CallbackBean<>(0, "", productList);
+            return callbackBean;
+        } else {
+            callbackBean = new CallbackBean<>(1, "There is no product now", null);
+            return callbackBean;
+        }
+    }
+
+    @Override
+    public CallbackBean<List<PromotionInfo>> getPromotionInfo() {
+        CallbackBean<List<PromotionInfo>> callbackBean;
+        String promotionInfoJsonData = getPromotionJsonInfo();
+        Gson gson = new Gson();
+        Type type = new TypeToken<List<PromotionInfo>>(){}.getType();
+        List<PromotionInfo>  promotionInfoList = gson.fromJson(promotionInfoJsonData, type);
+        if (promotionInfoList != null && promotionInfoList.size() != 0) {
+            callbackBean = new CallbackBean<>(0, "", promotionInfoList);
+            return callbackBean;
+        } else {
+            callbackBean = new CallbackBean<>(1, "There is no product now", null);
+            return callbackBean;
+        }
+    }
+
+    /**
+     * This function is just provide for testing the module of cashier
+     * @return Json string of products
+     */
+    private String getProductJsonData() {
+        return "[{\"barcode\":\"#ITEM000000\",\"category\":\"食品\",\"name\":\"可口可乐\",\"price\":3.0,\"subCategory\":\"碳酸饮料\",\"unit\":\"瓶\"},{\"barcode\":\"#ITEM000000\",\"category\":\"食品\",\"name\":\"可口可乐\",\"price\":3.0,\"subCategory\":\"碳酸饮料\",\"unit\":\"瓶\"},{\"barcode\":\"#ITEM000001\",\"category\":\"食品\",\"name\":\"雪碧\",\"price\":2.5,\"subCategory\":\"碳酸饮料\",\"unit\":\"瓶\"},{\"barcode\":\"#ITEM000001\",\"category\":\"食品\",\"name\":\"雪碧\",\"price\":2.5,\"subCategory\":\"碳酸饮料\",\"unit\":\"瓶\"},{\"barcode\":\"#ITEM000000\",\"category\":\"日用品\",\"name\":\"电池\",\"price\":5.0,\"subCategory\":\"电器\",\"unit\":\"个\"}]";
+    }
+
+    private String getPromotionJsonInfo() {
+        List<PromotionInfo> promotionInfoList = new ArrayList<>();
         try {
-            Product product1 = new Product("#ITEM000000", "可口可乐", "瓶", "食品", "碳酸饮料", 3.00);
-            Product product2 = new Product("#ITEM000000", "可口可乐", "瓶", "食品", "碳酸饮料", 3.00);
-            Product product3 = new Product("#ITEM000001", "雪碧", "瓶", "食品", "碳酸饮料", 2.50);
-            Product product4 = new Product("#ITEM000001", "雪碧", "瓶", "食品", "碳酸饮料", 2.50);
-            Product product5 = new Product("#ITEM000000", "电池", "个", "日用品", "电器", 5.00);
-            productList.add(product1);
-            productList.add(product2);
-            productList.add(product3);
-            productList.add(product4);
-            productList.add(product5);
+            promotionInfoList.add(new PromotionInfo("#ITEM000000", "FIVE_PERCENT_DISCOUNT"));
+            promotionInfoList.add(new PromotionInfo("#ITEM000001", "TEN_PERCENT_DISCOUNT"));
         } catch (Exception e) {
             e.printStackTrace();
         }
         Gson gson = new Gson();
-        String jsonElements = gson.toJson(productList);
-        Log.i("jsonElements", jsonElements);
-
-
-        return null;
-    }
-
-    @Override
-    public CallbackBean getPromotionInfo() {
-        return null;
+        return gson.toJson(promotionInfoList);
     }
 }

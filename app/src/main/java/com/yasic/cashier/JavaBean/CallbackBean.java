@@ -8,14 +8,8 @@ public class CallbackBean<T extends Object> {
     private String errorMessage;
     private T response;
 
-    public CallbackBean(int code, String errorMessage, T response) throws Exception{
-        if (code < 0){
-            throw new Exception("code must be positive");
-        }
+    public CallbackBean(int code, String errorMessage, T response){
         if (code == 0){
-            if (response == null){
-                throw new Exception("Response is null");
-            }
             this.errorMessage = "";
             this.response = response;
         }

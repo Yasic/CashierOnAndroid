@@ -14,7 +14,8 @@ public class Product {
     private double price;
     private static double MAXPRICE = 999;
 
-    public Product(String barcode, String name, String unit, String category, String subCategory, double price) throws Exception {        this.barcode = barcode;
+    public Product(String barcode, String name, String unit, String category, String subCategory, double price) throws Exception {
+        this.barcode = barcode;
         this.name = name;
         this.unit = unit;
         this.category = category;
