@@ -14,13 +14,12 @@ public class Product {
     private double price;
     private static double MAXPRICE = 999;
 
-    public Product(String barcode, String name, String unit, String category, String subCategory, double price) throws Exception {
+    public Product(String barcode, String name, String unit, String category, String subCategory, double price){
         this.barcode = barcode;
         this.name = name;
         this.unit = unit;
         this.category = category;
         this.subCategory = subCategory;
-        checkTheFormatOfPrice(price);
         DecimalFormat decimalFormat = new DecimalFormat("0.00");
         this.price = Double.valueOf(decimalFormat.format(price));
     }

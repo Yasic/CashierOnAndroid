@@ -1,7 +1,6 @@
 package com.yasic.cashier.Model;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.reflect.TypeToken;
 import com.yasic.cashier.JavaBean.CallbackBean;
 import com.yasic.cashier.JavaBean.Product;
@@ -15,8 +14,6 @@ import java.util.List;
  * Created by Yasic on 2016/5/27.
  */
 public class CashierModel implements IModel {
-
-    private JsonArray jsonData;
 
     @Override
     public CallbackBean<List<Product>> getProducts() {
@@ -51,13 +48,17 @@ public class CashierModel implements IModel {
     }
 
     /**
-     * This function is just provide for testing the module of cashier
+     * This function is just provided for testing the module of cashier
      * @return Json string of products
      */
     private String getProductJsonData() {
-        return "[{\"barcode\":\"#ITEM000000\",\"category\":\"食品\",\"name\":\"可口可乐\",\"price\":3.0,\"subCategory\":\"碳酸饮料\",\"unit\":\"瓶\"},{\"barcode\":\"#ITEM000000\",\"category\":\"食品\",\"name\":\"可口可乐\",\"price\":3.0,\"subCategory\":\"碳酸饮料\",\"unit\":\"瓶\"},{\"barcode\":\"#ITEM000001\",\"category\":\"食品\",\"name\":\"雪碧\",\"price\":2.5,\"subCategory\":\"碳酸饮料\",\"unit\":\"瓶\"},{\"barcode\":\"#ITEM000001\",\"category\":\"食品\",\"name\":\"雪碧\",\"price\":2.5,\"subCategory\":\"碳酸饮料\",\"unit\":\"瓶\"},{\"barcode\":\"#ITEM000000\",\"category\":\"日用品\",\"name\":\"电池\",\"price\":5.0,\"subCategory\":\"电器\",\"unit\":\"个\"}]";
+        return "[{\"barcode\":\"#ITEM000000\",\"category\":\"食品\",\"name\":\"可口可乐\",\"price\":3.0,\"subCategory\":\"碳酸饮料\",\"unit\":\"瓶\"},{\"barcode\":\"#ITEM000000\",\"category\":\"食品\",\"name\":\"可口可乐\",\"price\":3.0,\"subCategory\":\"碳酸饮料\",\"unit\":\"瓶\"},{\"barcode\":\"#ITEM000001\",\"category\":\"食品\",\"name\":\"雪碧\",\"price\":2.5,\"subCategory\":\"碳酸饮料\",\"unit\":\"瓶\"},{\"barcode\":\"#ITEM000001\",\"category\":\"食品\",\"name\":\"雪碧\",\"price\":2.5,\"subCategory\":\"碳酸饮料\",\"unit\":\"瓶\"},{\"barcode\":\"#ITEM000002\",\"category\":\"日用品\",\"name\":\"电池\",\"price\":5.0,\"subCategory\":\"电器\",\"unit\":\"个\"}]";
     }
 
+    /**
+     * This function is just provided for testing the module of cashier
+     * @return Json string of promotion information
+     */
     private String getPromotionJsonInfo() {
         List<PromotionInfo> promotionInfoList = new ArrayList<>();
         try {
